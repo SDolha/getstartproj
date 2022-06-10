@@ -1,4 +1,5 @@
 use std::env;
+use std::process;
 use std::path::Path;
 use std::ffi::OsStr;
 
@@ -6,10 +7,14 @@ fn main() {
     let args: Vec<String> = env::args().skip(1).collect();
     if args.len() != 1 {
         println!("Usage: getstartproj path");
-        return;
+        process::exit(1);
     }
     let arg = &args[0];
     let path = Path::new(arg);
+    if !path.exists() {
+        println!("Error: the specified path does not exist.");
+        process::exit(2);
+    }
     process(path, path);
 }
 
