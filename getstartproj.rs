@@ -1,6 +1,7 @@
 use std::env;
 use std::process;
 use std::path::Path;
+use std::path::PathBuf;
 use std::ffi::OsStr;
 use std::fs;
 
@@ -57,8 +58,8 @@ fn get_start_projects(sln_path: &Path) {
     println!("\t(temporary count of projects: {})", project_files.len()); // will be replaced later
 }
 
-fn get_project_paths(sln_path: &Path) -> Vec<String> {
-    let mut project_paths = Vec::<String>::new();
+fn get_project_paths(sln_path: &Path) -> Vec<PathBuf> {
+    let mut project_paths = Vec::<PathBuf>::new();
     if let Ok(contents) = fs::read_to_string(sln_path) {
         for line in contents.lines() {
             let project_indicator = "Project";
@@ -72,8 +73,9 @@ fn get_project_paths(sln_path: &Path) -> Vec<String> {
                     let start_index = project_indicator_len + start_index + start_separator.len();
                     if let Some(end_index) = line[start_index..].find(end_separator) {
                         let end_index = start_index + end_index;
-                        let project_path = &line[start_index..end_index];
-                        project_paths.push(project_path.to_string());
+                        let project_path_str = &line[start_index..end_index];
+                        let project_path = PathBuf::from(project_path_str);
+                        project_paths.push(project_path);
                     }
                 }
             }
