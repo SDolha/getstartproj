@@ -34,12 +34,12 @@ fn process(path: &Path, original_path: &Path) {
 
 fn process_file(path: &Path, original_path: &Path) {
     if path.extension() == Some(OsStr::new("sln")) {
-        process_sln(path, original_path);
+        process_sln_file(path, original_path);
     }
 }
 
-fn process_sln(sln: &Path, original_path: &Path) {
-    if let Ok(path) = sln.strip_prefix(original_path) {
+fn process_sln_file(sln_path: &Path, original_path: &Path) {
+    if let Ok(path) = sln_path.strip_prefix(original_path) {
         if let Some(file_name) = path.file_name() {
             if let Some(file_name) = file_name.to_str() {
                 if file_name != "" {
@@ -48,9 +48,9 @@ fn process_sln(sln: &Path, original_path: &Path) {
             }
         }
     }
-    get_start_projects(sln)
+    get_start_projects(sln_path)
 }
 
-fn get_start_projects(_sln: &Path) {
+fn get_start_projects(_sln_path: &Path) {
     println!("\t(root projects will be presented here)");
 }
