@@ -56,7 +56,7 @@ fn process_sln_file(sln_path: &Path, original_path: &Path) {
 fn get_start_projects(sln_path: &Path) {
     let project_paths = get_project_paths(&sln_path);
     let start_project_paths = get_start_project_paths(&project_paths, &sln_path);
-    print_paths(&start_project_paths, sln_path);
+    print_paths(&start_project_paths, &sln_path);
 }
 
 fn get_project_paths(sln_path: &Path) -> Vec<PathBuf> {
