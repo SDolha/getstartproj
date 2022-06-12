@@ -54,8 +54,9 @@ fn process_sln_file(sln_path: &Path, original_path: &Path) {
 }
 
 fn get_start_projects(sln_path: &Path) {
-    let project_files = get_project_paths(sln_path);
-    println!("\t(temporary count of projects: {})", project_files.len()); // will be replaced later
+    let project_paths = get_project_paths(sln_path);
+    let start_project_paths = get_start_project_paths(&project_paths);
+    print_paths(&start_project_paths);
 }
 
 fn get_project_paths(sln_path: &Path) -> Vec<PathBuf> {
@@ -82,4 +83,24 @@ fn get_project_paths(sln_path: &Path) -> Vec<PathBuf> {
         } 
     }
     return project_paths;
+}
+
+fn get_start_project_paths(project_paths: &Vec<PathBuf>) -> Vec<PathBuf> {
+    let mut start_paths = project_paths.to_vec();
+    for project_path in project_paths {
+        let dependency_paths = get_project_dependency_paths(&project_path);
+        start_paths.retain(|path| !dependency_paths.contains(&path));
+    }
+    return start_paths;
+}
+
+fn get_project_dependency_paths(path: &Path) -> Vec<PathBuf> {
+    //...
+    return [].to_vec();
+}
+
+fn print_paths(paths: &Vec<PathBuf>) {
+    for path in paths {
+        println!("\t{}", path.display());
+    }
 }
