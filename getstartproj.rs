@@ -57,6 +57,8 @@ fn get_start_projects(sln_path: &Path) {
     let project_paths = get_project_paths(&sln_path);
     let start_project_paths = get_start_project_paths(&project_paths, &sln_path);
     print_paths(&start_project_paths, &sln_path);
+    let path_count = start_project_paths.len();
+    println!("\t({} start project{})", path_count, if path_count != 1 { "s" } else { "" });
 }
 
 fn get_project_paths(sln_path: &Path) -> Vec<PathBuf> {
@@ -156,6 +158,4 @@ fn print_paths(paths: &Vec<PathBuf>, root_path: &Path) {
             println!("\t{}", path.display());
         }
     }
-    let path_count = paths.len();
-    println!("\t({} start project{})", path_count, if path_count != 1 { "s" } else { "" });
 }
