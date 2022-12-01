@@ -1,0 +1,9 @@
+[package]
+name = "getstartproj"
+description = "Determines start project(s) of a Visual Studio solution"
+version = "0.1.1"
+edition = "2021"
+license = "MIT"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
