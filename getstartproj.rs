@@ -8,13 +8,13 @@ use std::fs;
 fn main() {
     let args: Vec<String> = env::args().skip(1).collect();
     if args.len() != 1 {
-        println!("Usage: getstartproj path");
+        eprintln!("Usage: getstartproj path");
         process::exit(1);
     }
     let arg = &args[0];
     let path = Path::new(arg);
     if !path.exists() {
-        println!("Error: the specified path does not exist.");
+        eprintln!("Error: the specified path does not exist.");
         process::exit(2);
     }
     process(path, path);
